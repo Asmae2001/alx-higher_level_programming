@@ -2,6 +2,7 @@
 """Module for Base class"""
 import json
 import csv
+import turtle
 
 
 class Base:
@@ -95,10 +96,9 @@ class Base:
             pass
         return instances
 
+    @staticmethod
     def draw(list_rectangles, list_squares):
         """Draw rectangles and squares using the turtle module"""
-        import turtle
-
         turtle.bgcolor("white")
         turtle.title("Draw Shapes")
 
