@@ -129,4 +129,4 @@ class Base:
     def __str__(self):
         """Override the __str__ method"""
         return "[{}] ({}) {}".format(
-            self.__class__.__name__, self.id, self.to_dictionary))
+            self.__class__.__name__, self.id, self.to_dictionary())
