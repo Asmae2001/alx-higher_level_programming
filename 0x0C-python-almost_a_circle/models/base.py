@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for Base class"""
 import json
+import csv
 
 
 class Base:
@@ -62,6 +63,37 @@ class Base:
                 return [cls.create(**obj) for obj in list_dicts]
         except FileNotFoundError:
             return []
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Serialize list_objs to a CSV file"""
+        filename = cls.__name__ + ".csv"
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            if cls.__name__ == "Rectangle":
+                for rect in list_objs:
+                    writer.writerow([rect.id, rect.width, rect.height, rect.x, rect.y])
+            elif cls.__name__ == "Square":
+                for square in list_objs:
+                    writer.writerow([square.id, square.size, square.x, square.y])
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """Deserialize instances from a CSV file"""
+        filename = cls.__name__ + ".csv"
+        instances = []
+        try:
+            with open(filename, 'r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if cls.__name__ == "Rectangle":
+                        instance = cls(int(row[1]), int(row[2]), int(row[3]), int(row[4]), int(row[0]))
+                    elif cls.__name__ == "Square":
+                        instance = cls(int(row[1]), int(row[2]), int(row[3]), int(row[0]))
+                    instances.append(instance)
+        except FileNotFoundError:
+            pass
+        return instances
 
     def draw(list_rectangles, list_squares):
         """Draw rectangles and squares using the turtle module"""
