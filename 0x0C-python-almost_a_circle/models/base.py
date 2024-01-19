@@ -21,4 +21,3 @@ if __name__ == "__main__":
 
     b2 = Base(5)
     print(b2.id)  # Output: 5
-
